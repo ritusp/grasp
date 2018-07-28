@@ -30,7 +30,7 @@ public class MainController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
 
-        Calculation calculation = new Calculation();
+  /*      Calculation calculation = new Calculation();
 
         String operation;
 
@@ -43,7 +43,8 @@ public class MainController {
 
         model.addAttribute("title", "Addition");
 
-        return "calculation";
+        return "calculation"; */
+        return "add";
     }
 
 
