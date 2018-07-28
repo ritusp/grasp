@@ -16,7 +16,7 @@ public class MainController {
     @RequestMapping(value = "")
     public String index(Model model){
 
-        model.addAttribute("title","Hello World");
+        model.addAttribute("title","Welcome to Math Basics !");
 
         return "index";
     }

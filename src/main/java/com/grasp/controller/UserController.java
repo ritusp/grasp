@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("user")
@@ -50,11 +51,40 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String login(Model model) {
-
         model.addAttribute("title","Login Page");
 
 
         return "user/login";
 
     }
+
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String displayLogin(Model model, @ModelAttribute User user, Errors errors) {
+
+        User userFromDB;
+
+        Optional<User> optionalUser = userDao.findByUsername(user.getUsername());
+
+        if(optionalUser.isPresent()){
+            userFromDB = optionalUser.get();
+
+        }else{
+            model.addAttribute("title","Try again : wrong username ");
+            model.addAttribute("user", user );
+            return "user/login";
+        }
+
+        if(user.getUsername().equalsIgnoreCase(userFromDB.getUsername()) && user.getPassword().equals(userFromDB.getPassword())){
+            model.addAttribute("title","Welcome ");
+            model.addAttribute("user", userFromDB );
+            return "user/index";
+        }else{
+            model.addAttribute("title","Try again : wrong username / password");
+            model.addAttribute("user", user );
+            return "user/login";
+        }
+
+        }
+
+
 }

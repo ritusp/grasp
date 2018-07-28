@@ -3,14 +3,47 @@
 <head th:replace="fragments :: head"></head>
 
     <body class="container">
+    <nav th:replace="fragments :: navigation"></nav>
 
-        <h1 th:text="${title}">Default Title</h1>
-        <nav th:replace="fragments :: navigation"></nav>
+        <!--<h1 th:text="${title}">Default Title</h1>-->
 
-        <div>
-            <h1>Hello</h1>
-            <img src="Multiplication chart.jpg" class="img-thumbnail" alt="Learn Easy Math" width="304" height="236">
+
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-2 sidenav text-left" >
+                <p>Improve your math basics. Its Fun learning with Grasp. It will enhance your calculation speed </p>
+
+            </div>
+            <div class="col-sm-8 text-left">
+                <h1  th:text="${title}">Welcome</h1>
+                <p>
+                    More advanced mathematical skills are based on an early math “foundation”—just like a house is built on a strong foundation.
+                    This web application is for mainly early learners. This application will help kids to improve their math skills to do even
+                    big calculations faster.
+                </p>
+                <hr>
+                <h3>Test</h3>
+                <p>Lorem ipsum...</p>
+            </div>
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                    <img src="img\Multiplication_chart.jpg" class="img-thumbnail" alt="Learn Easy Math" >
+                </div>
+                <div class="well">
+                    <img src="img\cubeof3.jpg" class="img-thumbnail" alt="Learn Easy Math">
+                </div>
+            </div>
         </div>
+    </div>
+
+
+
+       <!-- <div>
+
+            <img src="img\Multiplication_chart.jpg" class="img-thumbnail" alt="Learn Easy Math" >
+            <img src="img\cubeof3.jpg" class="img-thumbnail" alt="Learn Easy Math">
+            <img src="img\MultiplicationTips.jpg" class="img-thumbnail" alt="Learn Easy Math" width="304" height="236">
+        </div>-->
 
     </body>
 </html>
