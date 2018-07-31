@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<form  method="post" style="max-width:600px;">
+    <div class="form-group col-lg-2">
+        <h1><label th:text="${firstNumber}" class="label label-info">firstNumber</label></h1>
+    </div>
+    <div class="form-group col-lg-2">
+        <h1><label >+</label></h1>
+    </div>
+    <div class="form-group col-lg-2">
+        <h1><label th:text="${secondNumber}" class="label label-info">secondNumber</label></h1>
+    </div>
+    <div class="form-group col-lg-2">
+        <h1><label >=</label></h1>
+    </div>
+    <div class="form-group col-lg-2">
+        <h1><input class="form-control" id="answerByUser-field" type="number" name="answerByUser" /></h1>
+    </div>
+    <div class="form-group col-lg-2">
+        <h1><input type="submit" value="Submit" class="btn btn-primary" /></h1>
+    </div>
+
+    <input type="hidden" name="firstNumber" th:value="${firstNumber}">
+    <input type="hidden" name="secondNumber" th:value="${secondNumber}">
+    <input type="hidden" name="correctAnswers" th:value="${correctAnswers}">
+    <input type="hidden" name="totalQuestion" th:value="${totalQuestion}">
+
+</form>
+
+<!--<span class="error" th:text="${message}"></span>-->
+
+</body>
+</html>

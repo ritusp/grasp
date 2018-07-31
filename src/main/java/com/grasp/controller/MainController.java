@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainController {
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "index")
     public String index(Model model){
 
         model.addAttribute("title","Welcome to Math Basics !");
@@ -27,25 +27,7 @@ public class MainController {
         return "practicetest";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String add(Model model) {
 
-  /*      Calculation calculation = new Calculation();
-
-        String operation;
-
-        List<String>  results = calculation.results(operation);
-
-        if(results == null ){
-            //TODO:
-        }
-
-
-        model.addAttribute("title", "Addition");
-
-        return "calculation"; */
-        return "add";
-    }
 
 
     @RequestMapping(value = "result", method = RequestMethod.GET)
