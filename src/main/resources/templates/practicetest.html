@@ -4,12 +4,12 @@
 
 <body class="container">
 
-<h1 th:text="${title}">Default Title</h1>
+
 <nav th:replace="fragments :: navigation"></nav>
 
-
+<h1 th:text="${title}">Default Title</h1>
 <form method ="get">
-    <h1>TEST</h1>
+
 
 
     <div >
@@ -17,10 +17,10 @@
             <tr>
 
                 <!-- radio button-->
-                <th><h1><a href="exam/additionexam">Addition</a></h1> </th>
+                <th><h1><a href="/exam/additionexam">Addition</a></h1> </th>
             </tr>
             <tr>
-                <th><h1><a href="/multiply">Multiplication</a></h1></th>
+                <th><h1><a href="/exam/multiplicationexam">Multiplication</a></h1></th>
             </tr>
 
         </table>
