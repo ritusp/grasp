@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+<!-- <nav th:replace="fragments :: navigation"></nav> -->
+
+
+
+<p th:unless="${results} and ${results.size()}">No Test Attempted so far :(</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Topic</th>
+        <th>Total Questions Attempted</th>
+        <th>Correct Answers</th>
+    </tr>
+
+    <tr th:each=" result : ${results}">
+
+        <td th:text="${result.topic}"></td>
+        <td th:text="${result.totalQuestion}"></td>
+        <td th:text="${result.correctAnswer}"></td>
+
+    </tr>
+
+</table>
+
+<h3><a href = "/user/logout">LOGOUT</a></h3>
+
+</body>
+</html>
