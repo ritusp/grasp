@@ -1,13 +1,14 @@
 package com.grasp.models;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Timer;
+import java.sql.Date;
 
 @Entity
 public class Result {
@@ -31,7 +32,8 @@ public class Result {
     @NotNull
     private int correctAnswer;
 
-    private String TestTakenOnDate;
+    @CreationTimestamp
+    private Date TestTakenOnDate;
 
     private String TotalTimeTaken;
 
@@ -55,11 +57,11 @@ public class Result {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getTestTakenOnDate() {
+    public Date getTestTakenOnDate() {
         return TestTakenOnDate;
     }
 
-    public void setTestTakenOnDate(String testTakenOnDate) {
+    public void setTestTakenOnDate(  Date testTakenOnDate) {
         TestTakenOnDate = testTakenOnDate;
     }
 
@@ -94,4 +96,9 @@ public class Result {
    // public void setTopic(Topic topic) {
      //   this.topic = topic;
    // }
+
+  @Override
+    public String toString(){
+        return "Exam Topic : " + this.getTopic() + " Correct Answers : " + this.getCorrectAnswer() + " Total Questions Attempted : " + this.getTotalQuestion() + " On Date : " + this.getTestTakenOnDate();
+    }
 }

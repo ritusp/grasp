@@ -1,5 +1,6 @@
 package com.grasp.controller;
 
+import com.grasp.mail.EmailServiceImpl;
 import com.grasp.models.Result;
 import com.grasp.models.Topic;
 
@@ -36,6 +37,9 @@ public class ExamController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    public EmailServiceImpl emailService;
 
     @RequestMapping(value="sampleTest", method = RequestMethod.GET)
             public String addSample(Model model) {
@@ -118,7 +122,7 @@ public class ExamController {
            result.setTopic("Add");
          //   result.setTopic((Topic) topicDao.findById(examtopicid).get());
             resultDao.save(result);
-
+            emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
 
             return "exam/result";
         }
@@ -175,6 +179,8 @@ public class ExamController {
             result.setUser(currentUserInSession);
             result.setTopic("Multiply");
             resultDao.save(result);
+
+            emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
 
             return "exam/result";
         }

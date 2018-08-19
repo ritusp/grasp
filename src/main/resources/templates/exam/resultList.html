@@ -15,13 +15,14 @@
 <table class="table">
 
     <tr>
+        <th>Exam taken on</th>
         <th>Topic</th>
         <th>Total Questions Attempted</th>
         <th>Correct Answers</th>
     </tr>
 
     <tr th:each=" result : ${results}">
-
+        <td th:text="${result.TestTakenOnDate}"></td>
         <td th:text="${result.topic}"></td>
         <td th:text="${result.totalQuestion}"></td>
         <td th:text="${result.correctAnswer}"></td>
