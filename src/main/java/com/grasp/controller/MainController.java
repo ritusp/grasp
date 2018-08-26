@@ -23,7 +23,7 @@ public class MainController {
 
     @RequestMapping(value = "practicetest", method = RequestMethod.GET)
     public String displayTestForm(Model model) {
-        model.addAttribute("title", "Test");
+        model.addAttribute("title", "Choose Topic");
         return "practicetest";
     }
 

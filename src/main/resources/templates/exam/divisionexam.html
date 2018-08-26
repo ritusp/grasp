@@ -11,21 +11,32 @@
     <div class="form-group col-lg-2">
         <h1><label th:text="${firstNumber}" class="label label-info">firstNumber</label></h1>
     </div>
-    <div class="form-group col-lg-2">
-        <h1><label >*</label></h1>
+    <div class="form-group col-lg-1">
+        <h1><label >/</label></h1>
     </div>
     <div class="form-group col-lg-2">
         <h1><label th:text="${secondNumber}" class="label label-info">secondNumber</label></h1>
     </div>
-    <div class="form-group col-lg-2">
+    <div class="form-group col-lg-1">
         <h1><label >=</label></h1>
     </div>
     <div class="form-group col-lg-2">
         <h1><input class="form-control" id="answerByUser-field" type="number" name="answerByUser" /></h1>
     </div>
+
+    <div class="form-group col-lg-2">
+        <h1><label >R</label></h1>
+    </div>
+
+    <div class="form-group col-lg-2">
+        <h1><input class="form-control" id="remainderAnswerByUser-field" type="number" name="remainderAnswerByUser" /></h1>
+    </div>
+
     <div class="form-group col-lg-2">
         <h1><input type="submit" value="Submit" class="btn btn-primary" /></h1>
     </div>
+
+    <h4>Enter '0' in case Remainder is '0'!</h4>
 
     <input type="hidden" name="firstNumber" th:value="${firstNumber}">
     <input type="hidden" name="secondNumber" th:value="${secondNumber}">

@@ -5,7 +5,7 @@
 <body class="container">
 
 
-<nav th:replace="fragments :: navigation"></nav>
+<!-- <nav th:replace="fragments :: navigation"></nav> -->
 
 <h1 th:text="${title}">Default Title</h1>
 <form method ="get">
@@ -19,13 +19,25 @@
 
                 <th><h1><a href="/exam/additionexam">Addition</a></h1> </th>
             </tr>
+
+            <tr>
+                <th><h1><a href="/exam/subtractionexam">Subtraction</a></h1></th>
+            </tr>
             <tr>
                 <th><h1><a href="/exam/multiplicationexam">Multiplication</a></h1></th>
             </tr>
-
+            <tr>
+                <th><h1><a href="/exam/divisionexam">Division</a></h1></th>
+            </tr>
+            <tr>
+                <th><h1><a href="/exam/squareexam">Square of a Number</a></h1></th>
+            </tr>
+            <tr>
+                <th><h1><a href="/exam/squarerootexam">Square Root of a Number</a></h1></th>
+            </tr>
         </table>
     </div>
-
+    <h3>To see the detailed report <a href = "/result">CLICK HERE</a></h3><br>
     <h3>Not ready for test, <a href = "/user/logout">LOGOUT</a></h3>
 </form>
 
