@@ -8,6 +8,27 @@
 
 <h3>Email has been sent to your parent with your current scores.</h3>
 
+<table class="table">
+
+    <tr>
+        <th>Exam taken on</th>
+        <th>Topic</th>
+        <th>Total Questions Attempted</th>
+        <th>Correct Answers</th>
+        <th>Total Time Taken (mm:ss)</th>
+    </tr>
+
+    <tr>
+        <td th:text="${result.TestTakenOnDate}"></td>
+        <td th:text="${result.topic}"></td>
+        <td th:text="${result.totalQuestion}"></td>
+        <td th:text="${result.correctAnswer}"></td>
+        <td th:text="${(result.TotalTimeTaken / 60) +':' + (result.TotalTimeTaken % 60) }"></td>
+
+    </tr>
+
+</table>
+
 <h3>To see the detailed report <a href = "/result">CLICK HERE</a></h3><br>
 <br>
 <br>

@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 @RequestMapping(value = "exam")
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
-//@SessionAttributes("examtopicid")
+@SessionAttributes("startTimeOfExam")
 public class ExamController {
 
     //Reading the property  numberOfQuestionInExam from application.properties
@@ -93,6 +95,10 @@ public class ExamController {
         int firstNumber = rand.nextInt(10);
         int secondNumber = rand.nextInt(10);
 
+        long startTimeOfExam =System.currentTimeMillis();
+
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
+
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("secondNumber", secondNumber);
         model.addAttribute("correctAnswers", 0);
@@ -103,7 +109,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "additionexam", method = RequestMethod.POST)
-    public String checkAddResult(@SessionAttribute("user") User currentUserInSession, Model model, @Valid Result newResult,   @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion")int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber")int firstNumber, @RequestParam("secondNumber") int secondNumber) {
+    public String checkAddResult(@SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, Model model, @Valid Result newResult,   @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion")int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber")int firstNumber, @RequestParam("secondNumber") int secondNumber) {
 
         int answer = firstNumber + secondNumber;
 
@@ -115,11 +121,20 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
-           Result result = new Result();
+            long endTimeOfExam = System.currentTimeMillis();
+
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
+            Result result = new Result();
            result.setTotalQuestion(totalQuestion);
            result.setCorrectAnswer(correctAnswers);
            result.setUser(currentUserInSession);
            result.setTopic("Add");
+           result.setTotalTimeTaken(totalTimeTaken);
+
+            model.addAttribute("result", result);
+
          //   result.setTopic((Topic) topicDao.findById(examtopicid).get());
             resultDao.save(result);
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
@@ -145,6 +160,10 @@ public class ExamController {
     @RequestMapping(value = "multiplicationexam", method = RequestMethod.GET)
     public String multiply(Model model) {
 
+        long startTimeOfExam =System.currentTimeMillis();
+
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
+
         model.addAttribute("examtopicid","16");
 
         Random rand = new Random();
@@ -161,7 +180,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "multiplicationexam", method = RequestMethod.POST)
-    public String checkMultiplyResult(Model model, @SessionAttribute("user") User currentUserInSession, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
+    public String checkMultiplyResult(Model model, @SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
 
         int answer = firstNumber * secondNumber;
 
@@ -173,11 +192,18 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
+            long endTimeOfExam = System.currentTimeMillis();
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
             Result result = new Result();
             result.setTotalQuestion(totalQuestion);
             result.setCorrectAnswer(correctAnswers);
             result.setUser(currentUserInSession);
             result.setTopic("Multiply");
+            result.setTotalTimeTaken(totalTimeTaken);
+
+            model.addAttribute("result", result);
             resultDao.save(result);
 
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
@@ -217,6 +243,9 @@ public class ExamController {
             secondNumber = temp;
         }
 
+        long startTimeOfExam =System.currentTimeMillis();
+
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
 
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("secondNumber", secondNumber);
@@ -228,7 +257,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "subtractionexam", method = RequestMethod.POST)
-    public String checkSubtractResult(Model model, @SessionAttribute("user") User currentUserInSession, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
+    public String checkSubtractResult(Model model, @SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
 
         int answer = firstNumber - secondNumber;
 
@@ -240,11 +269,18 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
+            long endTimeOfExam = System.currentTimeMillis();
+
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
             Result result = new Result();
             result.setTotalQuestion(totalQuestion);
             result.setCorrectAnswer(correctAnswers);
             result.setUser(currentUserInSession);
             result.setTopic("Subtract");
+            result.setTotalTimeTaken(totalTimeTaken);
+            model.addAttribute("result", result);
             resultDao.save(result);
 
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
@@ -281,19 +317,23 @@ public class ExamController {
 
         Random rand = new Random();
         int firstNumber = rand.nextInt(10);
-        if(firstNumber == 0){
+        while ( firstNumber == 0){
             firstNumber = rand.nextInt(10);
         }
         int secondNumber = rand.nextInt(10);
-        if(secondNumber == 0){
+        while (secondNumber == 0){
             secondNumber = rand.nextInt(10);
         }
         int temp = 0;
+        secondNumber = firstNumber * secondNumber;
         if(secondNumber > firstNumber){
             temp = firstNumber;
             firstNumber = secondNumber;
             secondNumber = temp;
         }
+        long startTimeOfExam =System.currentTimeMillis();
+
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
 
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("secondNumber", secondNumber);
@@ -305,12 +345,12 @@ public class ExamController {
     }
 
     @RequestMapping(value = "divisionexam", method = RequestMethod.POST)
-    public String checkDivisionResult(Model model, @SessionAttribute("user") User currentUserInSession, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser, @RequestParam("remainderAnswerByUser") int remainderAnswerByUser, @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
+    public String checkDivisionResult(Model model, @SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") int answerByUser,  @RequestParam("firstNumber") int firstNumber, @RequestParam("secondNumber") int secondNumber) {
 
         int answer = firstNumber / secondNumber;
         int remainder = firstNumber % secondNumber;
 
-        if((answerByUser == answer) && (remainderAnswerByUser == remainder)){
+        if((answerByUser == answer)){
             correctAnswers++;
         }
         totalQuestion++;
@@ -318,11 +358,18 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
+            long endTimeOfExam = System.currentTimeMillis();
+
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
             Result result = new Result();
             result.setTotalQuestion(totalQuestion);
             result.setCorrectAnswer(correctAnswers);
             result.setUser(currentUserInSession);
             result.setTopic("Division");
+            result.setTotalTimeTaken(totalTimeTaken);
+            model.addAttribute("result", result);
             resultDao.save(result);
 
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
@@ -334,14 +381,15 @@ public class ExamController {
 
         Random rand = new Random();
         firstNumber = rand.nextInt(10);
-        if(firstNumber == 0){
+        while (firstNumber == 0){
             firstNumber = rand.nextInt(10);
         }
         secondNumber = rand.nextInt(10);
-        if(secondNumber == 0){
+        while(secondNumber == 0){
             secondNumber = rand.nextInt(10);
         }
         int temp = 0;
+        secondNumber = firstNumber * secondNumber;
         if(secondNumber > firstNumber){
             temp = firstNumber;
             firstNumber = secondNumber;
@@ -363,8 +411,11 @@ public class ExamController {
 
         Random rand = new Random();
         int firstNumber = rand.nextInt(10);
+        firstNumber = firstNumber * firstNumber;
 
+        long startTimeOfExam =System.currentTimeMillis();
 
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
 
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("correctAnswers", 0);
@@ -375,7 +426,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "squarerootexam", method = RequestMethod.POST)
-    public String checkSquarerootResult(Model model, @SessionAttribute("user") User currentUserInSession, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") double answerByUser, @RequestParam("firstNumber") int firstNumber) {
+    public String checkSquarerootResult(Model model, @SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") double answerByUser, @RequestParam("firstNumber") int firstNumber) {
 
         double answer = Math.sqrt(firstNumber);
 
@@ -387,11 +438,18 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
+            long endTimeOfExam = System.currentTimeMillis();
+
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
             Result result = new Result();
             result.setTotalQuestion(totalQuestion);
             result.setCorrectAnswer(correctAnswers);
             result.setUser(currentUserInSession);
             result.setTopic("Square Root");
+            result.setTotalTimeTaken(totalTimeTaken);
+            model.addAttribute("result", result);
             resultDao.save(result);
 
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());
@@ -403,6 +461,7 @@ public class ExamController {
 
         Random rand = new Random();
         firstNumber = rand.nextInt(10);
+        firstNumber = firstNumber * firstNumber;
 
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("correctAnswers", correctAnswers);
@@ -420,7 +479,9 @@ public class ExamController {
         Random rand = new Random();
         int firstNumber = rand.nextInt(10);
 
+        long startTimeOfExam =System.currentTimeMillis();
 
+        model.addAttribute("startTimeOfExam", startTimeOfExam);
 
         model.addAttribute("firstNumber", firstNumber);
         model.addAttribute("correctAnswers", 0);
@@ -431,7 +492,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "squareexam", method = RequestMethod.POST)
-    public String checkSquareResult(Model model, @SessionAttribute("user") User currentUserInSession, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") double answerByUser, @RequestParam("firstNumber") int firstNumber) {
+    public String checkSquareResult(Model model, @SessionAttribute("user") User currentUserInSession, @SessionAttribute("startTimeOfExam") long startTimeOfExam, @RequestParam("correctAnswers") int correctAnswers, @RequestParam("totalQuestion") int totalQuestion, @RequestParam("answerByUser") double answerByUser, @RequestParam("firstNumber") int firstNumber) {
 
         double answer = firstNumber * firstNumber;
 
@@ -443,11 +504,18 @@ public class ExamController {
         if(totalQuestion == numberOfQuestionInExam ) {
             model.addAttribute("title", "Result : "+correctAnswers + " / " + totalQuestion);
 
+            long endTimeOfExam = System.currentTimeMillis();
+
+            //Calculate the total time taken in Seconds.
+            long totalTimeTaken = (endTimeOfExam - startTimeOfExam)/1000 ;
+
             Result result = new Result();
             result.setTotalQuestion(totalQuestion);
             result.setCorrectAnswer(correctAnswers);
             result.setUser(currentUserInSession);
             result.setTopic("Square");
+            result.setTotalTimeTaken(totalTimeTaken);
+            model.addAttribute("result", result);
             resultDao.save(result);
 
             emailService.sendSimpleMessage(currentUserInSession.getEmail(),"Exam Result ", result.toString());

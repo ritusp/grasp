@@ -4,10 +4,48 @@
 
 <body class="container">
 
+<h1 th:text="${title}" >Default Title</h1>
+
+<div class="container-fluid text-center">
+    <div class="row content ">
+        <div class="col-sm-6 ">
+            <div class="well" style="background-color: orange">
+                <h1 class="text-warning"><a href="/exam/additionexam" class="label">Addition <i class="fa fa-plus-square" ></i> </a></h1>
+            </div>
+            <div class="well" style="background-color: orange">
+                <h1><a href="/exam/multiplicationexam" class="label" > Multiplication  <i class="fa fa-times-rectangle"></i></a></h1>
+            </div>
+            <div class="well" style="background-color: orange">
+                <h1><a href="/exam/squareexam" class="label">Square  <i class="fa fa-superscript"></i></a></h1>
+            </div>
+            <div class="well" style="background-color: grey">
+                <h2><a href = "/result" class="label">TEST RESULT</a></h2>
+            </div>
+        </div>
+
+        <div class="col-sm-6" >
+            <div class="well" style="background-color: orange">
+                <h1><a href="/exam/subtractionexam" class="label ">Subtraction  <i class="fa fa-minus-square"></i></a></h1>
+            </div>
+            <div class="well" style="background-color: orange">
+                <h1><a href="/exam/divisionexam" class="label">Division   </i></a></h1>
+            </div>
+            <div class="well" style="background-color: orange">
+                <h1><a href="/exam/squarerootexam" class="label">Square Root  &#8730;</a></h1>
+            </div>
+            <div class="well" style="background-color: grey">
+                <h2 ><a href = "/user/logout" class="label ">LOGOUT</a></h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<h3>To see the detailed report <a href = "/result">CLICK HERE</a> <a href = "/user/logout">LOGOUT</a> </h3><br>-->
+
 
 <!-- <nav th:replace="fragments :: navigation"></nav> -->
 
-<h1 th:text="${title}">Default Title</h1>
+<!--<h1 th:text="${title}">Default Title</h1>
 <form method ="get">
 
 
@@ -39,7 +77,10 @@
     </div>
     <h3>To see the detailed report <a href = "/result">CLICK HERE</a></h3><br>
     <h3>Not ready for test, <a href = "/user/logout">LOGOUT</a></h3>
-</form>
+</form>-->
+
+
+
 
 
 </body>

@@ -35,7 +35,7 @@ public class Result {
     @CreationTimestamp
     private Date TestTakenOnDate;
 
-    private String TotalTimeTaken;
+    private long TotalTimeTaken;
 
     public Result() {
     }
@@ -65,11 +65,11 @@ public class Result {
         TestTakenOnDate = testTakenOnDate;
     }
 
-    public String getTotalTimeTaken() {
+    public long getTotalTimeTaken() {
         return TotalTimeTaken;
     }
 
-    public void setTotalTimeTaken(String totalTimeTaken) {
+    public void setTotalTimeTaken(long totalTimeTaken) {
         TotalTimeTaken = totalTimeTaken;
     }
 
@@ -99,6 +99,6 @@ public class Result {
 
   @Override
     public String toString(){
-        return "Exam Topic : " + this.getTopic() + " Correct Answers : " + this.getCorrectAnswer() + " Total Questions Attempted : " + this.getTotalQuestion() + " On Date : " + this.getTestTakenOnDate();
+        return "Exam Topic : " + this.getTopic() + " Correct Answers : " + this.getCorrectAnswer() + " Total Questions Attempted : " + this.getTotalQuestion() + " On Date : " + this.getTestTakenOnDate() + " Total Time taken : " + this.getTotalTimeTaken();
     }
 }
