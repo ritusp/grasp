@@ -77,6 +77,8 @@ public class UserController {
         if(user.getUsername().equalsIgnoreCase(userFromDB.getUsername()) && user.getPassword().equals(userFromDB.getPassword())){
             model.addAttribute("title","Welcome ");
             model.addAttribute("user", userFromDB );
+
+
             return "user/index";
         }else{
             model.addAttribute("title","Try again : wrong username / password");
